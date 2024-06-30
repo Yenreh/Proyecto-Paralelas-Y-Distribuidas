@@ -1,0 +1,9 @@
+.idea/*
+.idea
+config/config.json
+src/config/config.json
+src/output/yt-dlp
+src/output/downloads/*
+src/output/*.log
+src/k8s/kubectl
+src/k8s/minikube
