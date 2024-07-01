@@ -1,9 +1,9 @@
 class modalCreator {
-    constructor(title, body, footer_action) {
+    constructor(title, body, footer_action, extra_class= "") {
         this.modalId = 'dynamicModal-' + Math.random().toString(36).substring(2, 15);
         this.modalStructure = $(`
         <div class="modal fade" id="${this.modalId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="${this.modalId}Label" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-dialog modal-dialog-centered ${extra_class}">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">${title}</h5>

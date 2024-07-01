@@ -98,6 +98,7 @@
             },
             table: {
                 'font-size': '0.8rem',
+                'white-space': 'nowrap'
             },
             footer: {
                 'font-size': '0.9rem',
@@ -288,13 +289,106 @@
     $(document).on('click', '.btn-details', function(e) {
         let row = $(e.currentTarget).closest('tr');
         let id = row.find('td[data-column-id="id"]').text();
-        console.log(`Actualizar registro con ID ${id}`);
+        AjaxHelper.get(`{{endpoint_url}}/${id}/tasks`, function(response) {
+            let tasks = response.data;
+
+
+            if(tasks.length > 0) {
+                let title = 'Project Tasks';
+                let body = document.createElement('div');
+                let footer_actions = "";
+                const grid = new gridjs.Grid({
+                    search: true,
+                    pagination: {
+                        enabled: true,
+                        limit: 10,
+                        summary: true
+                    },
+                    sort: true,
+                    style: {
+                        th: {
+                            'background-color': '#000',
+                            'border-bottom': '1px solid #ccc',
+                            'color': '#fff',
+                            'font-size': '0.9rem',
+                            'width': '400px'
+                        },
+                        td: {
+                            'font-size': '0.8rem'
+                        },
+                        table: {
+                            'font-size': '0.8rem',
+                            'white-space': 'nowrap'
+                        },
+                        footer: {
+                            'font-size': '0.9rem',
+                        }
+                    },
+                    className: {
+                        table: 'custom-table-class'
+                    },
+                    columns: [
+                        {
+                            id: 'id',
+                            hidden: true
+                        },
+                        {
+                            id: 'name',
+                            name: 'Name'
+                        },
+                        {
+                            id: 'created_at',
+                            name: 'Created At'
+                        },
+                        {
+                            id: 'updated_at',
+                            name: 'Updated At'
+                        }
+                    ],
+                    data: tasks
+                }).render(body);
+
+                const modal = new modalCreator(
+                    title,
+                    body,
+                    footer_actions,
+                    "modal-lg"
+                );
+                modal.show();
+            } else {
+                Swal.fire({
+                    title: 'No tasks',
+                    text: 'No tasks found for this project',
+                    icon: 'info'
+                });
+            }
+        }, function(errorStatus) {
+            Swal.fire({
+                title: 'Error',
+                text: `Error fetching record data: ${errorStatus}`,
+                icon: 'error'
+            });
+        });
     });
 
     $(document).on('click', '.btn-delete', function(e) {
         let row = $(e.currentTarget).closest('tr');
         let id = row.find('td[data-column-id="id"]').text();
-        console.log(`Eliminar registro con ID ${id}`);
+        AjaxHelper.delete(`{{endpoint_url}}/delete/${id}`, function(response) {
+            Swal.fire({
+                title: 'Success',
+                text: 'Record deleted successfully',
+                icon: 'success'
+            }).then(() => {
+                location.reload();
+            });
+        }, function(errorStatus) {
+            Swal.fire({
+                title: 'Error',
+                text: `Error deleting record: ${errorStatus}`,
+                icon: 'error'
+            });
+        });
     });
     {% endif %}
 
