@@ -58,13 +58,33 @@
 <!-- Grid.js JS -->
 <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 
-<script>
-    {% if model_data %}
-        const grid = new gridjs.Grid({
-            columns: {{ model_data.columns|tojson }},
-            data: {{ model_data.data|tojson }}
-        }).render(document.getElementById('tabla-container'));
+<script >
+    {% if records %}
+        let records = {{ records|safe }};
+    //     records is and array of json objects, add grid formater for the actions
+        records.forEach((record) => {
+            record['Actions'] = `<a href="/{{ model_name }}/edit/${record.id}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                <a href="/{{ model_name }}/delete/${record.id}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>`;
+        });
+        console.log(records);
+    {% else %}
+        let records = [];
     {% endif %}
+    {% if col_names %}
+        let col_names = {{ col_names|safe }};
+    //     Add a column for the actions
+        col_names.push(
+            'Actions');
+    {% else %}
+        let col_names = [];
+    {% endif %}
+    {% if show_table %}
+    const grid = new gridjs.Grid({
+        columns: col_names,
+        data: records
+    }).render(document.getElementById("tabla-container"));
+    {% endif %}
+
 </script>
 </body>
 </html>

@@ -16,6 +16,7 @@ def readFile(file_path: str):
     except FileNotFoundError:
         print(f"File not found: {file_path}")
 
+
 def fetch_data_from_api(endpoint):
     try:
         response = requests.get(endpoint)
