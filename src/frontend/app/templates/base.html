@@ -275,6 +275,14 @@
             }
         });
 
+        {% if dropdown_fields %}
+        dropdown_fields.forEach(field => {
+            let select = $(body).find(`#${field.name}`);
+            let selectedValue = data[field.name];
+            select.val(selectedValue);
+        });
+        {% endif %}
+
         let title = 'Update record';
         let footer_actions = "";
 
@@ -284,6 +292,7 @@
             footer_actions
         );
         modal.show();
+
     });
 
     $(document).on('click', '.btn-details', function(e) {
