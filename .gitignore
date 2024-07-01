@@ -7,3 +7,4 @@ src/output/downloads/*
 src/output/*.log
 src/k8s/kubectl
 src/k8s/minikube
+src/frontend/app/config/config.json
