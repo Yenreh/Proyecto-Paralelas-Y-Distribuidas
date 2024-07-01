@@ -23,6 +23,7 @@ def index():
     context['col_names'] = data['col_names']
     context['form_data'] = data['form_data']
     context['endpoint_url'] = endpoint
+    context['show_details'] = True
     print(context)
     return render_template(
         'projects.html',

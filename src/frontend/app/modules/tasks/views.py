@@ -28,6 +28,7 @@ def index():
         'endpoint': get_api_endpoint() + '/projects'
     }]
     context['endpoint_url'] = endpoint
+    context['show_details'] = False
     return render_template(
         'tasks.html',
         **context

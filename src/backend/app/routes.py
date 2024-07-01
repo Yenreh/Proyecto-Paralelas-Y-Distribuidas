@@ -32,6 +32,12 @@ def create_project():
     return jsonify({'message': 'Project created'}), 201
 
 
+@app.route('/projects/<int:id>/tasks', methods=['GET'])
+def get_project_tasks(id):
+    tasks = Task.query.filter_by(project_id=id).all()
+    return requestResponse(tasks)
+
+
 @app.route('/projects/update/<int:id>', methods=['PUT'])
 def update_project(id):
     project = Project.query.get(id)

@@ -111,11 +111,21 @@
             {
                 name: 'Actions',
                 formatter: (cell, row) => {
+
+                    {% if show_details %}
                     return gridjs.html(`
                     <button class="btn-edit btn btn-success"><i class="bi bi-pencil-fill"></i> </button>
                     <button class="btn-delete btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                     <button class="btn-details btn btn-info"><i class="bi bi-eye-fill"></i></i></button>
                 `);
+                    {% else %}
+                    return gridjs.html(`
+                    <button class="btn-edit btn btn-success"><i class="bi bi-pencil-fill"></i> </button>
+                    <button class="btn-delete btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+
+                `);
+                    {% endif %}
+
                 }
             }
         ],
@@ -195,7 +205,84 @@
     $(document).on('click', '.btn-edit', function(e) {
         let row = $(e.currentTarget).closest('tr');
         let id = row.find('td[data-column-id="id"]').text();
-        console.log(`Editar registro con ID ${id}`);
+        console.log(`Actualizar registro con ID ${id}`);
+        // get data of the record using AjaxHelper.get and save it in record_data
+        let data = null;
+        AjaxHelper.get(`{{endpoint_url}}/${id}`, function(response) {
+            data = response.data;
+        }, function(errorStatus) {
+            Swal.fire({
+                title: 'Error',
+                text: `Error fetching record data: ${errorStatus}`,
+                icon: 'error'
+            });
+        });
+        if(data == null) {
+            return;
+        }
+        const options = {
+            nonEditableFields: [],
+            excludeFields: ['id', 'created_at', 'updated_at'],
+            requiredFields: ['name', 'description', 'project_id']
+        };
+
+        {% if dropdown_fields %}
+
+        let dropdown_fields = {{ dropdown_fields|safe }};
+        let dropdown_data = {};
+        dropdown_fields.forEach(field => {
+            AjaxHelper.get(field.endpoint, function(response) {
+                let response_data = response.data;
+                dropdown_data[field.name] = [];
+                response_data.forEach(item => {
+                    dropdown_data[field.name].push({
+                        value: item.id,
+                        text: item.name
+                    });
+                });
+            }, function(errorStatus) {
+                Swal.fire({
+                    title: 'Error',
+                    text: `Error fetching dropdown options for ${field.name}: ${errorStatus}`,
+                    icon: 'error'
+                });
+            });
+        });
+        options.dropdownFields = dropdown_data;
+        {% endif %}
+
+        const dynamicForm = new DynamicForm(data, options);
+        const body = dynamicForm.createForm('Update', () => {
+            if(body.checkValidity()) {
+                const formData = dynamicForm.getFormData();
+                let url =`{{endpoint_url}}/update/${id}`;
+                AjaxHelper.put(url, formData, function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Record Updated successfully',
+                        icon: 'success'
+                    }).then(() => {
+                        location.reload();
+                    });
+                }, function(errorStatus) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error updating record: ${errorStatus}`,
+                        icon: 'error'
+                    });
+                });
+            }
+        });
+
+        let title = 'Update record';
+        let footer_actions = "";
+
+        const modal = new modalCreator(
+            title,
+            body,
+            footer_actions
+        );
+        modal.show();
     });
 
     $(document).on('click', '.btn-details', function(e) {
