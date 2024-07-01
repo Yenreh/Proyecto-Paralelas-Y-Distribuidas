@@ -19,8 +19,6 @@ class modalCreator {
           </div>
         </div>
         `);
-
-        // Bind the remove logic to the close buttons
         this.modalStructure.find('.btn-close').on('click', () => {
             this.remove();
         });
