@@ -100,30 +100,18 @@
     }).render(document.getElementById("tabla-container"));
 
     $(document).on('click', '.btn-create', function(e) {
-        console.log(`Crear registro`);
-
         const data = {{ form_data|safe }}
-        console.log('Form data:', data);
 
         const options = {
             nonEditableFields: [],
             excludeFields: ['id', 'created_at', 'updated_at'],
-            requiredFields: ['name', 'description', 'project_id'],
-            dropdownFields: {
-                project_id: [
-                    { value: 1, text: 'Project 1' },
-                    { value: 2, text: 'Project 2' },
-                    { value: 3, text: 'Project 3' }
-                ]
-            }
+            requiredFields: ['name', 'description', 'project_id']
         };
 
         const dynamicForm = new DynamicForm(data, options);
-        let body = dynamicForm.createForm('Create', formData => {
-            if(body.checkValidity()){
-                console.log('Form is valid');
-                console.log('Form data:', formData);
-            }
+        const body = dynamicForm.createForm('Create', () => {
+            const formData = dynamicForm.getFormData();
+            console.log(formData);
         });
 
         let title = 'Create new record';
@@ -134,26 +122,7 @@
             body,
             footer_actions
         );
-
-        // Show modal
         modal.show();
-
-        $(document).on('click', '.modal-btn-action', function(e) {
-            e.preventDefault();
-
-            // Check form validity before proceeding
-            if (body.checkValidity()) {
-                const formData = dynamicForm.getFormData();
-                console.log('Form Data:', formData);
-
-                // Additional logic to handle form submission, e.g., AJAX request
-                // $.ajax({ ... });
-            } else {
-                // Form is invalid, handle error or notify user
-                console.log('Form is invalid.');
-                // You might want to show an alert or customize as per your UI/UX needs
-            }
-        });
     });
 
 

@@ -25,7 +25,7 @@ class DynamicForm {
 
                 let input;
                 if (this.dropdownFields[field]) {
-                    input = this.createDropdown(field);
+                    input = this.createDropdown(field); // Use createDropdown for dropdown fields
                 } else {
                     input = document.createElement('input');
                     input.type = 'text';
@@ -52,21 +52,19 @@ class DynamicForm {
 
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
-        submitButton.classList.add('btn', 'btn-primary', 'float-end');
-        submitButton.innerText = submitText || 'Submit'; // Set text for submit button
-
-        submitButton.addEventListener('click', event => {
-            event.preventDefault(); // Prevent default form submission behavior
-
-            if (form.checkValidity()) {
-                const formData = this.getFormData();
-                onSubmit(formData); // Call the onSubmit function with form data
-            } else {
-                form.classList.add('was-validated');
-            }
-        });
+        submitButton.classList.add('btn', 'btn-primary');
+        submitButton.innerText = submitText || 'Submit';
 
         form.appendChild(submitButton);
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            if (form.checkValidity()) {
+                onSubmit(); //
+            } else {
+                form.classList.add('was-validated'); // Add Bootstrap validation classes
+            }
+        });
 
         return form;
     }
@@ -77,8 +75,8 @@ class DynamicForm {
 
         this.dropdownFields[field].forEach(option => {
             const optionElement = document.createElement('option');
-            optionElement.value = option;
-            optionElement.innerText = option;
+            optionElement.value = option.value.toString(); // Ensure value is converted to string if necessary
+            optionElement.innerText = option.text;
             select.appendChild(optionElement);
         });
 
