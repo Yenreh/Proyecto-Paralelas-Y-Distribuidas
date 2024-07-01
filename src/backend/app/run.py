@@ -1,9 +1,11 @@
 from flask import Flask, render_template
 from models import db
 import routes
+from flask_cors import CORS
 
 CONFIG_PATH = 'config/config.json'
 app = Flask(__name__)
+CORS(app)
 
 
 class Config:
