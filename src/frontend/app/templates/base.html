@@ -207,7 +207,7 @@
         let row = $(e.currentTarget).closest('tr');
         let id = row.find('td[data-column-id="id"]').text();
         console.log(`Actualizar registro con ID ${id}`);
-        // get data of the record using AjaxHelper.get and save it in record_data
+
         let data = null;
         AjaxHelper.get(`{{endpoint_url}}/${id}`, function(response) {
             data = response.data;
@@ -291,8 +291,6 @@
         let id = row.find('td[data-column-id="id"]').text();
         AjaxHelper.get(`{{endpoint_url}}/${id}/tasks`, function(response) {
             let tasks = response.data;
-
-
             if(tasks.length > 0) {
                 let title = 'Project Tasks';
                 let body = document.createElement('div');
@@ -374,20 +372,32 @@
     $(document).on('click', '.btn-delete', function(e) {
         let row = $(e.currentTarget).closest('tr');
         let id = row.find('td[data-column-id="id"]').text();
-        AjaxHelper.delete(`{{endpoint_url}}/delete/${id}`, function(response) {
-            Swal.fire({
-                title: 'Success',
-                text: 'Record deleted successfully',
-                icon: 'success'
-            }).then(() => {
-                location.reload();
-            });
-        }, function(errorStatus) {
-            Swal.fire({
-                title: 'Error',
-                text: `Error deleting record: ${errorStatus}`,
-                icon: 'error'
-            });
+        // show swal alert to confirm delete
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this record and all tasks associated with it!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                AjaxHelper.delete(`{{endpoint_url}}/delete/${id}`, function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Record deleted successfully',
+                        icon: 'success'
+                    }).then(() => {
+                        location.reload();
+                    });
+                }, function(errorStatus) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error deleting record: ${errorStatus}`,
+                        icon: 'error'
+                    });
+                });
+            }
         });
     });
     {% endif %}
