@@ -7,7 +7,7 @@ class DynamicForm {
         this.requiredFields = options.requiredFields || [];
     }
 
-    createForm() {
+    createForm(submitText, onSubmit) {
         const form = document.createElement('form');
         form.classList.add('needs-validation');
         form.noValidate = true;
@@ -52,8 +52,19 @@ class DynamicForm {
 
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
-        submitButton.classList.add('btn', 'btn-primary');
-        submitButton.innerText = 'Submit';
+        submitButton.classList.add('btn', 'btn-primary', 'float-end');
+        submitButton.innerText = submitText || 'Submit'; // Set text for submit button
+
+        submitButton.addEventListener('click', event => {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            if (form.checkValidity()) {
+                const formData = this.getFormData();
+                onSubmit(formData); // Call the onSubmit function with form data
+            } else {
+                form.classList.add('was-validated');
+            }
+        });
 
         form.appendChild(submitButton);
 

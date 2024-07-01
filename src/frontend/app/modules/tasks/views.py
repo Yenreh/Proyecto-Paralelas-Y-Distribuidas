@@ -22,6 +22,7 @@ def index():
     context['show_table'] = True
     context['records'] = data['records']
     context['col_names'] = data['col_names']
+    context['form_data'] = data['form_data']
     return render_template(
         'tasks.html',
         **context

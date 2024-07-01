@@ -102,26 +102,31 @@
     $(document).on('click', '.btn-create', function(e) {
         console.log(`Crear registro`);
 
-        // Example usage:
-        const data = {
-            "created_at": "Sat, 01 Jun 2024 10:00:00 GMT",
-            "id": 1,
-            "name": "Project Alpha",
-            "updated_at": "Sat, 01 Jun 2024 10:00:00 GMT"
-        };
+        const data = {{ form_data|safe }}
+        console.log('Form data:', data);
 
         const options = {
             nonEditableFields: [],
-            excludeFields: ['id'],
-            requiredFields: ['name'],
-            dropdownFields: {}
+            excludeFields: ['id', 'created_at', 'updated_at'],
+            requiredFields: ['name', 'description', 'project_id'],
+            dropdownFields: {
+                project_id: [
+                    { value: 1, text: 'Project 1' },
+                    { value: 2, text: 'Project 2' },
+                    { value: 3, text: 'Project 3' }
+                ]
+            }
         };
 
         const dynamicForm = new DynamicForm(data, options);
-        let body = dynamicForm.createForm(); // Create the form element
+        let body = dynamicForm.createForm('Create', formData => {
+            if(body.checkValidity()){
+                console.log('Form is valid');
+                console.log('Form data:', formData);
+            }
+        });
 
         let title = 'Create new record';
-        // let footer_actions = `<button type="button" class="btn btn-primary modal-btn-action">Create</button>`;
         let footer_actions = "";
 
         const modal = new modalCreator(
