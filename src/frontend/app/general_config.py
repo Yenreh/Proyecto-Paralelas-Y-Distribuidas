@@ -4,7 +4,7 @@ APP_CONFIG = helper.loadJSON(CONFIG_PATH)
 
 def get_general_context():
     return {
-        'app_name': 'Gestor de Proyectos',
+        'app_name': 'Project Manager',
         'site_name': 'Proyecto Distribuidas'
     }
 
