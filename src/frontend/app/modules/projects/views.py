@@ -21,7 +21,7 @@ def index():
     context['show_table'] = True
     context['records'] = data['records']
     context['col_names'] = data['col_names']
-
+    print(context['records'])
     return render_template(
         'projects.html',
         **context

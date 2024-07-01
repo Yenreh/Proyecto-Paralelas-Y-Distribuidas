@@ -61,6 +61,7 @@
 <!-- Grid.js JS -->
 <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/modals.js') }}?v={{ version }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/forms.js') }}?v={{ version }}"></script>
 
 <script >
     {% if records %}
@@ -100,18 +101,56 @@
 
     $(document).on('click', '.btn-create', function(e) {
         console.log(`Crear registro`);
+
+        // Example usage:
+        const data = {
+            "created_at": "Sat, 01 Jun 2024 10:00:00 GMT",
+            "id": 1,
+            "name": "Project Alpha",
+            "updated_at": "Sat, 01 Jun 2024 10:00:00 GMT"
+        };
+
+        const options = {
+            nonEditableFields: [],
+            excludeFields: ['id'],
+            requiredFields: ['name'],
+            dropdownFields: {}
+        };
+
+        const dynamicForm = new DynamicForm(data, options);
+        let body = dynamicForm.createForm(); // Create the form element
+
         let title = 'Create new record';
-        let body ="";
-        let footer_actions = `
-            <button type="button" class="btn btn-primary">Create</button>
-        `;
+        // let footer_actions = `<button type="button" class="btn btn-primary modal-btn-action">Create</button>`;
+        let footer_actions = "";
+
         const modal = new modalCreator(
             title,
             body,
             footer_actions
         );
+
+        // Show modal
         modal.show();
+
+        $(document).on('click', '.modal-btn-action', function(e) {
+            e.preventDefault();
+
+            // Check form validity before proceeding
+            if (body.checkValidity()) {
+                const formData = dynamicForm.getFormData();
+                console.log('Form Data:', formData);
+
+                // Additional logic to handle form submission, e.g., AJAX request
+                // $.ajax({ ... });
+            } else {
+                // Form is invalid, handle error or notify user
+                console.log('Form is invalid.');
+                // You might want to show an alert or customize as per your UI/UX needs
+            }
+        });
     });
+
 
     $(document).on('click', '.btn-edit', function(e) {
         let row = $(e.currentTarget).closest('tr');

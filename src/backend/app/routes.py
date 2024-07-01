@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, request, jsonify
 from helpers import requestResponse
 
@@ -22,8 +24,8 @@ def create_project():
     data = request.get_json()
     new_project = Project(
         name=data['name'],
-        created_at=data['created_at'],
-        updated_at=data['updated_at']
+        created_at=datetime.now(),
+        updated_at=datetime.now()
     )
     db.session.add(new_project)
     db.session.commit()
@@ -36,7 +38,7 @@ def update_project(id):
     if project:
         data = request.get_json()
         project.name = data['name']
-        project.updated_at = data['updated_at']
+        project.updated_at = datetime.now()
         db.session.commit()
         return jsonify({'message': 'Project updated'}), 200
     return jsonify({'message': 'Project not found'}), 404
@@ -72,8 +74,8 @@ def create_task():
     new_task = Task(
         project_id=data['project_id'],
         name=data['name'],
-        created_at=data['created_at'],
-        updated_at=data['updated_at']
+        created_at=datetime.now(),
+        updated_at=datetime.now()
     )
     db.session.add(new_task)
     db.session.commit()
@@ -85,9 +87,10 @@ def update_task(id):
     task = Task.query.get(id)
     if task:
         data = request.get_json()
-        task.project_id = data['project_id']
+        if 'project_id' in data:
+            task.project_id = data['project_id']
         task.name = data['name']
-        task.updated_at = data['updated_at']
+        task.updated_at = datetime.now()
         db.session.commit()
         return jsonify({'message': 'Task updated'}), 200
     return jsonify({'message': 'Task not found'}), 404

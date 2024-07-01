@@ -1,5 +1,5 @@
 class modalCreator {
-    constructor(title, body, footer_actions) {
+    constructor(title, body, footer_action) {
         this.modalId = 'dynamicModal-' + Math.random().toString(36).substring(2, 15);
         this.modalStructure = $(`
         <div class="modal fade" id="${this.modalId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="${this.modalId}Label" aria-hidden="true">
@@ -10,15 +10,17 @@ class modalCreator {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                   ${body}
               </div>
               <div class="modal-footer">
-                ${footer_actions}
               </div>
             </div>
           </div>
         </div>
         `);
+        // append body to modal-body
+        this.modalStructure.find('.modal-body').append(body);
+        // append footer to modal-footer
+        this.modalStructure.find('.modal-footer').append(footer_action);
         this.modalStructure.find('.btn-close').on('click', () => {
             this.remove();
         });
