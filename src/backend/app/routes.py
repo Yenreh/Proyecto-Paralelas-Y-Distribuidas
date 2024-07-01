@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from helpers import requestResponse
 
 from models import db, Project, Task
 
@@ -8,16 +9,13 @@ app = Blueprint('main', __name__)
 @app.route('/projects', methods=['GET'])
 def get_projects():
     projects = Project.query.all()
-    return jsonify(projects), 200
+    return requestResponse(projects)
 
 
 @app.route('/projects/<int:id>', methods=['GET'])
 def get_project(id):
     project = Project.query.get(id)
-    if project:
-        return jsonify(project), 200
-    return jsonify({'message': 'Project not found'}), 404
-
+    return requestResponse(project)
 
 @app.route('/projects/create', methods=['POST'])
 def create_project():
@@ -59,15 +57,13 @@ def delete_project(id):
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     tasks = Task.query.all()
-    return jsonify(tasks), 200
+    return requestResponse(tasks)
 
 
 @app.route('/tasks/<int:id>', methods=['GET'])
 def get_task(id):
     task = Task.query.get(id)
-    if task:
-        return jsonify(task), 200
-    return jsonify({'message': 'Task not found'}), 404
+    return requestResponse(task)
 
 
 @app.route('/tasks/create', methods=['POST'])

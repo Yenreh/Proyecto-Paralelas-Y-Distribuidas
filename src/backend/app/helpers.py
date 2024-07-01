@@ -1,3 +1,6 @@
+from flask import jsonify
+
+
 def to_dict(model, db):
     """
     Convert a SQLAlchemy model to a dictionary.
@@ -8,3 +11,9 @@ def to_dict(model, db):
         return {c.name: getattr(model, c.name) for c in model.__table__.columns}
     else:
         raise TypeError("Invalid model type")
+
+
+def requestResponse(data):
+    if data:
+        return jsonify({"data": data}), 200
+    return jsonify({'data': None}), 404
