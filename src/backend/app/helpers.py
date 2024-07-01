@@ -14,7 +14,6 @@ def to_dict(model, db):
 
 
 def requestResponse(data):
-    print(data)
     if data:
         return jsonify({"data": data}), 200
     if data is None or data == []:
