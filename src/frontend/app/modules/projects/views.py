@@ -22,6 +22,8 @@ def index():
     context['records'] = data['records']
     context['col_names'] = data['col_names']
     context['form_data'] = data['form_data']
+    context['endpoint_url'] = endpoint
+    print(context)
     return render_template(
         'projects.html',
         **context

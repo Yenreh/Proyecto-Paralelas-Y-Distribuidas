@@ -66,7 +66,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/forms.js') }}?v={{ version }}"></script>
 
 
-<script >
+<script type="text/javascript">
     {% if records %}
     let records = {{ records|safe }};
     {% else %}
@@ -127,7 +127,6 @@
                     });
                 });
             }, function(errorStatus) {
-                // console.error(`Error fetching dropdown options for ${field.name}:`, errorStatus);
                 Swal.fire({
                     title: 'Error',
                     text: `Error fetching dropdown options for ${field.name}: ${errorStatus}`,
@@ -136,13 +135,29 @@
             });
         });
         options.dropdownFields = dropdown_data;
-        console.log(options);
         {% endif %}
 
         const dynamicForm = new DynamicForm(data, options);
         const body = dynamicForm.createForm('Create', () => {
-            const formData = dynamicForm.getFormData();
-            console.log(formData);
+            if(body.checkValidity()) {
+                const formData = dynamicForm.getFormData();
+                let url =`{{endpoint_url}}/create`;
+                AjaxHelper.post(url, formData, function(response) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Record created successfully',
+                        icon: 'success'
+                    }).then(() => {
+                        location.reload();
+                    });
+                }, function(errorStatus) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: `Error creating record: ${errorStatus}`,
+                        icon: 'error'
+                    });
+                });
+            }
         });
 
         let title = 'Create new record';

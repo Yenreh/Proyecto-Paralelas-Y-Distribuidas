@@ -23,10 +23,11 @@ def index():
     context['records'] = data['records']
     context['col_names'] = data['col_names']
     context['form_data'] = data['form_data']
-    context['dropdown_fields']  = [{
+    context['dropdown_fields'] = [{
         'name': 'project_id',
         'endpoint': get_api_endpoint() + '/projects'
     }]
+    context['endpoint_url'] = endpoint
     return render_template(
         'tasks.html',
         **context

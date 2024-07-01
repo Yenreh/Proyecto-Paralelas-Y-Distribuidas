@@ -1,6 +1,5 @@
 class AjaxHelper {
     static get(url, callback, errorCallback) {
-        console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
