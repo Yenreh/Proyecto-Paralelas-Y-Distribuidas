@@ -2,15 +2,15 @@ from flask import Flask, render_template
 from models import db
 import routes
 from flask_cors import CORS
+from general_config import get_db_config
 
-CONFIG_PATH = 'config/config.json'
 app = Flask(__name__)
 CORS(app)
 
 
 class Config:
-    # SQLALCHEMY_DATABASE_URI = 'mysql://root:password@database-deployment:3306/administrator_db'
-    SQLALCHEMY_DATABASE_URI = 'mysql://yenreh:3289@127.0.0.1:3306/administrator_db'
+    db_config = get_db_config()
+    SQLALCHEMY_DATABASE_URI = f"mysql://{db_config['username']}:{db_config['password']}@{db_config['hostname']}:{db_config['port']}/{db_config['database']}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

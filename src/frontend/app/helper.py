@@ -1,6 +1,5 @@
 import json
 import requests
-import os
 from pathlib import Path
 
 def loadJSON(file_path: str):

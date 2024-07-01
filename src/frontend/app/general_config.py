@@ -12,3 +12,7 @@ def get_general_context():
 
 def get_api_endpoint():
     return APP_CONFIG.get('api_endpoint')
+
+
+def get_app_secret():
+    return APP_CONFIG.get('app_secret')
