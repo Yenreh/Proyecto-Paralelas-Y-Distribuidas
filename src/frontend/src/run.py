@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, redirect
 import modules.projects.views as projects_views
 import modules.tasks.views as tasks_views
 from general_config import get_general_context, get_app_secret
@@ -13,12 +13,8 @@ app.register_blueprint(tasks_views.app, url_prefix='/tasks')
 
 @app.route('/')
 def index():
-    context = get_general_context()
-    return render_template(
-        'index.html',
-        title='Home',
-        **context
-    )
+    # context = get_general_context()
+    return redirect('/projects')
 
 
 if __name__ == '__main__':
