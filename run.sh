@@ -3,4 +3,4 @@
 cd src/swarm
 docker stack deploy -c backend-deployment.yaml backend_stack
 docker stack deploy -c frontend-deployment.yaml frontend_stack
-docker stack deploy -c database-deployment.yaml database_stSack
+docker stack deploy -c database-deployment.yaml database_stack
