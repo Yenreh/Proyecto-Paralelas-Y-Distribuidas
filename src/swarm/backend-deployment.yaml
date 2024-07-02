@@ -8,7 +8,7 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - nothing
+      - backend-network
     environment:
       - DATABASE_HOST=database
       - DATABASE_PORT=3306
@@ -17,5 +17,5 @@ services:
       - DATABASE_NAME=mydatabase
 
 networks:
-  nothing:
-    external: true
+  backend-network:
+    driver: overlay

@@ -8,10 +8,11 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - nothing
+      - database-network
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=administrator_db
+
 networks:
-  nothing:
-    external: true
+  database-network:
+    driver: overlay
