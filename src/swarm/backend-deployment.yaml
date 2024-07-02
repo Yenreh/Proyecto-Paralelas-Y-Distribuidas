@@ -16,4 +16,6 @@ services:
       - DATABASE_PASSWORD=example
       - DATABASE_NAME=mydatabase
 
-
+networks:
+  nothing:
+    external: true

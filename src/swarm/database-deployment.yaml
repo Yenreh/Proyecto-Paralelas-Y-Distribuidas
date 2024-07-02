@@ -12,3 +12,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=administrator_db
+networks:
+  nothing:
+    external: true
