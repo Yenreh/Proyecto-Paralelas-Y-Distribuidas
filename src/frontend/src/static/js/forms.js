@@ -52,7 +52,7 @@ class DynamicForm {
 
         const submitButton = document.createElement('button');
         submitButton.type = 'submit';
-        submitButton.classList.add('btn', 'btn-primary');
+        submitButton.classList.add('btn', 'btn-primary', 'float-end');
         submitButton.innerText = submitText || 'Submit';
 
         form.appendChild(submitButton);

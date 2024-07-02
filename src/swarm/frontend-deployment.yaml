@@ -3,7 +3,6 @@ version: '3.9'
 networks:
   nothing:
     external: true
-  frontend-network:
     driver: overlay
 
 services:
@@ -15,6 +14,4 @@ services:
       - "5000:5000"
     networks:
       - nothing
-      - frontend-network
-    environment:
-      - BACKEND_URL=http://backend:8000
+

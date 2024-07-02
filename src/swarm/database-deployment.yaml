@@ -3,15 +3,13 @@ version: '3.9'
 networks:
   nothing:
     external: true
-
+    driver: overlay
 
 services:
   database:
     image: database_image:latest
     deploy:
       replicas: 1
-    ports:
-      - "3306:3306"
     networks:
       - nothing
     environment:

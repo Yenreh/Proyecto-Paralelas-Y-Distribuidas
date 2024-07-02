@@ -3,7 +3,7 @@ version: '3.9'
 networks:
   nothing:
     external: true
-
+    driver: overlay
 services:
   backend:
     image: backend_image:latest
