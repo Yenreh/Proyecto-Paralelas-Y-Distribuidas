@@ -8,7 +8,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire application
 COPY . .
+RUN chmod -R 777 /app
+RUN chmod -R 777 /app/src/config
 
-CMD ["python", "src/run.py"]
+CMD ["python3.12", "/app/src/run.py"]
 
 
