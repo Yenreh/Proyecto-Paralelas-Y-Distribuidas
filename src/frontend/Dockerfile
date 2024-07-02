@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN chmod -R 777 /app
 RUN chmod -R 777 /app/src/config
-
+EXPOSE 5000
 CMD ["python3.12", "/app/src/run.py"]
 
 

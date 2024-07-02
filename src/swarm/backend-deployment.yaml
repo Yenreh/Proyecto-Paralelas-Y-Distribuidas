@@ -10,7 +10,7 @@ services:
     deploy:
       replicas: 1
     ports:
-      - "5000:5000"
+      - "8000:8000"
     networks:
       - nothing
     environment:
