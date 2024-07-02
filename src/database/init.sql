@@ -1,4 +1,5 @@
-CREATE DATABASE IF NOT EXISTS administrator_db;
+DROP DATABASE  administrator_db;
+CREATE DATABASE  administrator_db;
 
 CREATE TABLE administrator_db.project (
                          id INT AUTO_INCREMENT PRIMARY KEY,
