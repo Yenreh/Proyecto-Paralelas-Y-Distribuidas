@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-WORKDIR /
+WORKDIR /app
 
 # Instalar dependencias del sistema
 RUN apt-get update && \
@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python", "/app/run.py"]
+CMD ["python", "/src/run.py"]
