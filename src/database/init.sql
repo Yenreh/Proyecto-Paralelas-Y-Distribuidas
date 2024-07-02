@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS administrator_db;
+CREATE DATABASE IF NOT EXISTS 1;
 
 USE administrator_db;
 

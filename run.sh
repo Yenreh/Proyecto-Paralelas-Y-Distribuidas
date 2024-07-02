@@ -1,20 +1,7 @@
 #!/bin/bash
 # Navigate to src directory
 cd src/k8s
-export PATH=$(pwd):${PATH}
 
-# Start Minikube
-minikube start --cpus 6 --memory 8192
-
-# Build Docker images into Minikube
-#minikube image build -t database:latest ../database
-#minikube image build -t backend:latest ../backend
-minikube image build -t frontend:latest ../frontend
-
-
-# Apply Kubernetes deployment files
-#kubectl apply -f database-deployment.yaml
-#sleep 5
-#kubectl apply -f backend-deployment.yaml
-#sleep 5
-kubectl apply -f frontend-deployment.yaml
+docker stack deploy -c docker_swarm/backend-deployment.yaml backend_stack
+docker stack deploy -c docker_swarm/frontend-deployment.yaml frontend_stack
+docker stack deploy -c docker_swarm/database-deployment.yaml database_stack
