@@ -14,9 +14,9 @@ services:
     networks:
       - nothing
     environment:
-      - DATABASE_HOST=database
+      - DATABASE_HOST=localhost
       - DATABASE_PORT=3306
       - DATABASE_USER=root
-      - DATABASE_PASSWORD=example
-      - DATABASE_NAME=mydatabase
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=administrator_db
 
