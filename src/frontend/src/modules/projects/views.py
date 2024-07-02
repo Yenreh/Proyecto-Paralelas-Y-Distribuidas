@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from general_config import get_general_context, get_api_endpoint
+from general_config import get_general_context, get_api_endpoint, get_api_external_endpoint
 from helper import process_table_data
 
 app = Blueprint('projects', __name__, template_folder='templates', static_folder='static')
@@ -22,7 +22,7 @@ def index():
     context['records'] = data['records']
     context['col_names'] = data['col_names']
     context['form_data'] = data['form_data']
-    context['endpoint_url'] = endpoint
+    context['endpoint_url'] = get_api_external_endpoint() + '/projects'
     context['show_details'] = True
     print(context)
     return render_template(

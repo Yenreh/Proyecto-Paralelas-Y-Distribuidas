@@ -15,5 +15,9 @@ def get_api_endpoint():
     return APP_CONFIG.get('api_endpoint')
 
 
+def get_api_external_endpoint():
+    return APP_CONFIG.get('api_external_endpoint')
+
+
 def get_app_secret():
     return APP_CONFIG.get('app_secret')

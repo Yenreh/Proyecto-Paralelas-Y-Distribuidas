@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from general_config import get_general_context, get_api_endpoint
+from general_config import get_general_context, get_api_endpoint, get_api_external_endpoint
 from helper import process_table_data
 
 app = Blueprint('tasks', __name__, template_folder='templates', static_folder='static')
@@ -25,9 +25,9 @@ def index():
     context['form_data'] = data['form_data']
     context['dropdown_fields'] = [{
         'name': 'project_id',
-        'endpoint': get_api_endpoint() + '/projects'
+        'endpoint': get_api_external_endpoint() + '/projects'
     }]
-    context['endpoint_url'] = endpoint
+    context['endpoint_url'] = get_api_external_endpoint() + '/tasks'
     context['show_details'] = False
     return render_template(
         'tasks.html',
