@@ -6,9 +6,13 @@ services:
     deploy:
       replicas: 1
     ports:
-      - "3306:5001"
+      - "3306:3306"
     networks:
       - somenetwork
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=administrator_db
+
+networks:
+  somenetwork:
+    driver: overlay
