@@ -7,7 +7,7 @@ networks:
 
 services:
   database:
-    image: mariadb:latest
+    image: database_image:latest
     deploy:
       replicas: 1
     ports:
