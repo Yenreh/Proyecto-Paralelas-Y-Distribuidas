@@ -8,7 +8,7 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - somenetwork
+      - nothing
     environment:
       - DATABASE_HOST=database
       - DATABASE_PORT=3306
@@ -16,6 +16,4 @@ services:
       - DATABASE_PASSWORD=example
       - DATABASE_NAME=mydatabase
 
-networks:
-  somenetwork:
-    driver: overlay
+

@@ -1,3 +1,3 @@
 #!/bin/bashS
 docker swarm init --advertise-addr  192.168.1.133
-docker network create -d overlay --scope=swarm somenetwork
+docker network create --driver overlay  nothing

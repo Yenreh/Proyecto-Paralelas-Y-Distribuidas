@@ -8,11 +8,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - somenetwork
+      - nothing
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=administrator_db
-
-networks:
-  somenetwork:
-    driver: overlay
