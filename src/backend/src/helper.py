@@ -33,4 +33,4 @@ def requestResponse(data):
         return jsonify({"data": data}), 200
     if data is None or data == []:
         return jsonify({'data': data}), 200
-    return jsonify({'data': None}), 404
+    return jsonify({'data': None, "message": "Data not Found"}), 404

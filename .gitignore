@@ -7,4 +7,4 @@ src/output/downloads/*
 src/output/*.log
 src/frontend/src/config/config.json
 src/backend/src/config/config.json
-src/pruebas/venv/*
+src/pruebas/results/*

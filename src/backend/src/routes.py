@@ -17,9 +17,12 @@ def get_project(id):
     project = Project.query.get(id)
     return requestResponse(project)
 
+
 @app.route('/projects/create', methods=['POST'])
 def create_project():
     data = request.get_json()
+    if 'name' not in data:
+        return jsonify({'message': 'No project name provided'}), 400
     new_project = Project(
         name=data['name'],
         created_at=datetime.now(),
@@ -75,6 +78,10 @@ def get_task(id):
 @app.route('/tasks/create', methods=['POST'])
 def create_task():
     data = request.get_json()
+    if 'name' not in data or 'project_id' not in data:
+        return jsonify({'message': 'Missing task name or project id'}), 400
+    if not isinstance(data['project_id'], int):
+        return jsonify({'message': 'Project id must be an integer'}), 400
     new_task = Task(
         project_id=data['project_id'],
         name=data['name'],
@@ -92,6 +99,8 @@ def update_task(id):
     if task:
         data = request.get_json()
         if 'project_id' in data:
+            if not isinstance(data['project_id'], int):
+                return jsonify({'message': 'Project id must be an integer'}), 400
             task.project_id = data['project_id']
         task.name = data['name']
         task.updated_at = datetime.now()
