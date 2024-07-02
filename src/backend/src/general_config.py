@@ -1,4 +1,5 @@
 import helper
+
 CONFIG_PATH = 'config/config.json'
 APP_CONFIG = helper.loadJSON(CONFIG_PATH)
 

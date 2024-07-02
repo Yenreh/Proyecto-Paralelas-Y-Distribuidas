@@ -1,8 +1,6 @@
 from datetime import datetime
-
 from flask import Blueprint, request, jsonify
 from helper import requestResponse
-
 from models import db, Project, Task
 
 app = Blueprint('main', __name__)

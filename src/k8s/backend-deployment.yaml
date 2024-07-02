@@ -14,13 +14,10 @@ spec:
     spec:
       containers:
         - name: backend
-          image: docker.io/library/backend:latest
+          image: backend:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 5000
-          env:
-            - name: SQLALCHEMY_DATABASE_URI
-              value: "mysql+pymysql://user:password@database:3306/administrator_db"
 ---
 apiVersion: v1
 kind: Service

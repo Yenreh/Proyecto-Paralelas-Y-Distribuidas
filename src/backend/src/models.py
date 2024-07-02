@@ -1,8 +1,7 @@
 from datetime import datetime
-from typing import List
-
 from flask_sqlalchemy import SQLAlchemy
 from dataclasses import dataclass
+
 db = SQLAlchemy()
 
 
