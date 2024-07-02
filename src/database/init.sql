@@ -34,3 +34,5 @@ INSERT INTO task (project_id, name, created_at, updated_at) VALUES
                                                                 (2, 'Task 2 for Beta', '2024-06-02 13:00:00', '2024-06-02 13:00:00'),
                                                                 (3, 'Task 1 for Gamma', '2024-06-03 13:00:00', '2024-06-03 13:00:00'),
                                                                 (3, 'Task 2 for Gamma', '2024-06-03 14:00:00', '2024-06-03 14:00:00');
+
+COMMIT;
