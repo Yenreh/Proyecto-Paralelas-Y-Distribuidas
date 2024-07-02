@@ -20,7 +20,6 @@ class User(HttpUser):
         self.client.get("tasks")
 
     # test for view that does not exist
-
     @task
     def get_users(self):
         self.client.get("/users")
