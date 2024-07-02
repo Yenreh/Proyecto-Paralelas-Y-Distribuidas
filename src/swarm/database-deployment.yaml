@@ -1,5 +1,10 @@
 version: '3.9'
 
+networks:
+  nothing:
+    external: true
+
+
 services:
   database:
     image: mariadb:latest
@@ -8,11 +13,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - database-network
+      - nothing
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=administrator_db
-
-networks:
-  database-network:
-    driver: overlay

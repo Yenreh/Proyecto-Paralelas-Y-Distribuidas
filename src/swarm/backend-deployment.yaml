@@ -1,5 +1,9 @@
 version: '3.9'
 
+networks:
+  nothing:
+    external: true
+
 services:
   backend:
     image: backend_image:latest
@@ -8,7 +12,7 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - backend-network
+      - nothing
     environment:
       - DATABASE_HOST=database
       - DATABASE_PORT=3306
@@ -16,6 +20,3 @@ services:
       - DATABASE_PASSWORD=example
       - DATABASE_NAME=mydatabase
 
-networks:
-  backend-network:
-    driver: overlay

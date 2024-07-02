@@ -1,5 +1,9 @@
 version: '3.9'
 
+networks:
+  nothing:
+    external: true
+
 services:
   frontend:
     image: frontend_image:latest
@@ -8,10 +12,6 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - frontend-network
+      - nothing
     environment:
       - BACKEND_URL=http://backend:5000
-
-networks:
-  frontend-network:
-    driver: overlay
