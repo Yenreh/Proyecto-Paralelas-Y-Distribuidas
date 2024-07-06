@@ -10,8 +10,6 @@ log_path = get_log_path()
 
 @app.after_request
 def log_action_result(response):
-    print("Logging action result")
-    print(response)
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_message = f"{current_time} - {request.method} {request.path} - Status: {response.status_code}"
     saveLog(log_message=log_message, file_path=log_path)
