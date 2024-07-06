@@ -55,7 +55,7 @@ Los archivos de Logs se encuentran en el directorio logs/logs.log y se mapean a 
 
 ### Despliegue
 Para el despliegue de la aplicación se deben seguir los siguientes pasos
-### 1. Iniciar Docker Swarm en el nodo
+### 1. Iniciar Docker Swarm y la red de docker para los contenedores en el nodo
 Para esto se debe cambiar en el script init.sh el valor de la variable IP por la dirección ip del nodo. Luego se debe ejecutar dicho script
 ```bash
 sh init.sh
