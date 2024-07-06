@@ -8,3 +8,4 @@ src/output/*.log
 src/frontend/src/config/config.json
 src/backend/src/config/config.json
 src/tests/results/*
+src/backend/src/logs/*
