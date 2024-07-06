@@ -31,8 +31,7 @@ class User(HttpUser):
     # Test for register that does not exist after first run
     @task
     def delete_project(self):
-        response = self.client.delete("/projects/delete/2")
-        response.raise_for_status()
+        self.client.delete("/projects/delete/2")
 
     @task
     def get_project_tasks(self):
