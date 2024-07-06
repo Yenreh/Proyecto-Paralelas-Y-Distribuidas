@@ -16,6 +16,14 @@ def readFile(file_path: str):
         print(f"File not found: {file_path}")
 
 
+def saveLog(log_message, file_path):
+    try:
+        with open(file_path, 'a') as f:
+            f.write(log_message + "\n")
+    except Exception as e:
+        print("An error occurred while saving the log:", e)
+
+
 def to_dict(model, db):
     """
     Convert a SQLAlchemy model to a dictionary.

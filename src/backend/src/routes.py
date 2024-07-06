@@ -1,9 +1,21 @@
 from datetime import datetime
 from flask import Blueprint, request, jsonify
-from helper import requestResponse
+from helper import requestResponse, saveLog
 from models import db, Project, Task
+from general_config import get_log_path
 
 app = Blueprint('main', __name__)
+log_path = get_log_path()
+
+
+@app.after_request
+def log_action_result(response):
+    print("Logging action result")
+    print(response)
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_message = f"{current_time} - {request.method} {request.path} - Status: {response.status_code}"
+    saveLog(log_message=log_message, file_path=log_path)
+    return response
 
 
 @app.route('/projects', methods=['GET'])
