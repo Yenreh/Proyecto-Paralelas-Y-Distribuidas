@@ -1,0 +1,5 @@
+{
+  "api_endpoint": "<api_endpoint>",
+  "api_external_endpoint": "<api_external_endpoint>",
+  "app_secret": "<app_secret>"
+}
