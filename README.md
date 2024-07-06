@@ -1,4 +1,4 @@
-# Proyecto-Paralelas-Y-Distribuidas
+# Proyecto Infraestructuras Paralelas y Distribuidas
 
 
 
