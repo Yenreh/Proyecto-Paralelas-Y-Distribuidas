@@ -1,13 +1,61 @@
 # Proyecto Infraestructuras Paralelas y Distribuidas
 
 
-
 ### Integrantes
 - **Herney Eduardo Quintero Trochez** 1528556
 
 ### Descripción
 Implementación y evaluación de un sistema de orquestación de contenedores para alta disponibilidad en procesamiento distribuido
 
+### Estructura
+
+```
+src/
+│
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── logs/
+│   │   ├── run.py
+│   │   ├── general_config.py
+│   │   ├── routes.py
+│   │   ├── models.py
+│   │   └── helper.py
+│   ├── Dockerfile
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── run.py
+│   │   ├── modules/
+│   │   ├── static/
+│   │   └── templates/
+│   ├── Dockerfile
+│   └── requirements.txt
+│
+├── database/
+│   ├── Dockerfile
+│   └── init.sql
+│
+├── swarm/
+│   ├── backend-deployment.yaml
+│   ├── frontend-deployment.yaml
+│   └── database-deployment.yaml
+├── tests/
+│   ├── results/
+│   ├── backend.py
+│   ├── frontend.py
+│   ├── install.sh
+│   ├── requirements.txt
+│   └── run_tests.sh
+├── init.sh
+├── build_docker_images.sh
+├── run.sh
+├── erase.sh
+├── erase_images.sh
+└── README.md
+```
 
 ### Requerimientos
 - Python 3.12
