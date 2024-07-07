@@ -90,10 +90,12 @@ def create_task():
     data = request.get_json()
     if 'name' not in data or 'project_id' not in data:
         return jsonify({'message': 'Missing task name or project id'}), 400
-    if not isinstance(data['project_id'], int):
+    try:
+        project_id = int(data['project_id'])
+    except ValueError:
         return jsonify({'message': 'Project id must be an integer'}), 400
     new_task = Task(
-        project_id=data['project_id'],
+        project_id=project_id,
         name=data['name'],
         created_at=datetime.now(),
         updated_at=datetime.now()
@@ -109,9 +111,10 @@ def update_task(id):
     if task:
         data = request.get_json()
         if 'project_id' in data:
-            if not isinstance(data['project_id'], int):
+            try:
+                data['project_id'] = int(data['project_id'])
+            except ValueError:
                 return jsonify({'message': 'Project id must be an integer'}), 400
-            task.project_id = data['project_id']
         task.name = data['name']
         task.updated_at = datetime.now()
         db.session.commit()
